@@ -1,0 +1,1187 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Курс «Первая сделка»</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700;800;900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: курс как фильм — тёмные кинозалы с зерном и прожектором чередуются со светлой редакционной сеткой; язык сделки — чек, смета, синяя печать */
+:root {
+  --paper: #F3F4F8;
+  --surface: #FFFFFF;
+  --ink: #0E1430;
+  --muted: #5B6283;
+  --line: #DCDFEA;
+  --cobalt: #2E44E5;
+  --cobalt-tint: #E3E7FF;
+  --on-cobalt: #FFFFFF;
+  --ok: #1D8A5A;
+  --mid: #A86A12;
+  /* кинозал: одинаковый в обеих темах */
+  --cine: #07091A;
+  --cine-2: #10142C;
+  --cine-ink: #F2F0EA;
+  --cine-muted: #A6AAC4;
+  --cine-line: #252A49;
+  --gold: #FFB547;
+  --cine-blue: #8F9CFF;
+  --f-display: "Geologica", "Arial", system-ui, sans-serif;
+  --f-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --radius: 16px;
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B0E1D; --surface: #141931; --ink: #E9ECF8; --muted: #9AA1C3; --line: #262C4C;
+    --cobalt: #8796FF; --cobalt-tint: #1B2251; --on-cobalt: #0A0D1B; --ok: #4CC38A; --mid: #E2AE4C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B0E1D; --surface: #141931; --ink: #E9ECF8; --muted: #9AA1C3; --line: #262C4C;
+  --cobalt: #8796FF; --cobalt-tint: #1B2251; --on-cobalt: #0A0D1B; --ok: #4CC38A; --mid: #E2AE4C; color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 20; background: var(--cine); }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); position: relative; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.7rem, 7.4vw, 6.6rem); line-height: 0.94; font-weight: 900; letter-spacing: -0.05em; }
+h2 { font-size: clamp(1.9rem, 3.8vw, 3.2rem); line-height: 1.04; font-weight: 700; letter-spacing: -0.035em; }
+h3 { font-size: 1.2rem; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; }
+p { margin: 0; }
+a { color: var(--cobalt); }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- кинозал (тёмные секции) ---------- */
+.cine { background: var(--cine); color: var(--cine-ink); position: relative; isolation: isolate; overflow: hidden; }
+.cine::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.07; pointer-events: none; z-index: 0; mix-blend-mode: screen; }
+.cine > * { position: relative; z-index: 1; }
+.cine .eyebrow { color: var(--cine-muted); }
+.cine .head > p { color: var(--cine-muted); }
+.cine .btn { background: var(--gold); border-color: var(--gold); color: #1A1200; }
+.cine .btn:hover { box-shadow: 0 12px 30px -10px rgba(255, 181, 71, 0.6); }
+.cine .btn.ghost { background: transparent; color: var(--cine-ink); border-color: var(--cine-line); }
+.cine .btn.ghost:hover { border-color: var(--cine-ink); box-shadow: none; }
+
+/* ---------- навигация ---------- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 15; background: color-mix(in srgb, var(--cine) 82%, transparent); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid var(--cine-line); color: var(--cine-ink); }
+.top .wrap { display: flex; align-items: center; gap: 20px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; color: var(--cine-ink); text-decoration: none; margin-right: auto; }
+.brand svg { flex: none; }
+.tabs { display: flex; gap: 4px; }
+.tabs a { text-decoration: none; color: var(--cine-muted); font-weight: 500; font-size: 0.95rem; padding: 8px 14px; border-radius: 999px; transition: color .2s, background .2s; }
+.tabs a:hover { color: var(--cine-ink); }
+.tabs a[aria-current="page"] { color: var(--cine-ink); background: var(--cine-2); box-shadow: 0 0 0 1px var(--cine-line); }
+.top .btn { padding: 10px 18px; font-size: 0.92rem; background: var(--gold); border-color: var(--gold); color: #1A1200; }
+@media (max-width: 720px) { .top .btn { display: none; } .tabs a { padding: 8px 11px; font-size: 0.9rem; } .brand span { display: none; } }
+
+/* ---------- кнопки ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font: 600 1rem/1 var(--f-body); padding: 17px 26px; border-radius: 999px; border: 1.5px solid var(--cobalt); background: var(--cobalt); color: var(--on-cobalt); text-decoration: none; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--cobalt) 70%, transparent); }
+.btn .arr { transition: transform .2s ease; }
+.btn:hover .arr { transform: translateX(3px); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--ink); box-shadow: none; }
+
+/* ---------- секции ---------- */
+section { padding-block: clamp(72px, 10vw, 136px); }
+.head { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-bottom: clamp(40px, 5vw, 64px); align-items: end; }
+.head > div { grid-column: 1 / span 7; display: grid; gap: 18px; min-width: 0; }
+.head > p { grid-column: 9 / span 4; color: var(--muted); min-width: 0; }
+@media (max-width: 900px) { .head > div, .head > p { grid-column: 1 / -1; } }
+
+/* ---------- hero: киноафиша ---------- */
+.hero { --mx: 72%; --my: 30%; padding-block: 0; background:
+  radial-gradient(700px circle at var(--mx) var(--my), rgba(46, 68, 229, 0.42), transparent 62%),
+  radial-gradient(520px circle at 8% 105%, rgba(255, 181, 71, 0.2), transparent 60%),
+  var(--cine); }
+.letterbox { height: clamp(14px, 2.4vw, 30px); background: #000; }
+.hero .wrap { padding-block: clamp(48px, 7vw, 96px) clamp(40px, 5vw, 64px); }
+.hero-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: center; }
+.hero-text { grid-column: 1 / span 7; display: grid; gap: 28px; min-width: 0; }
+.hero-art { grid-column: 9 / span 4; min-width: 0; display: flex; justify-content: center; }
+.credits { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cine-muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.credits b { color: var(--gold); font-weight: 500; }
+.hero h1 .hl { color: var(--gold); font-style: italic; font-weight: 800; letter-spacing: -0.06em; }
+.hero h1 .ol { color: transparent; -webkit-text-stroke: 1.5px var(--cine-ink); }
+.hero .lead { font-size: clamp(1.08rem, 1.4vw, 1.25rem); color: var(--cine-muted); max-width: 46ch; line-height: 1.55; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 900px) { .hero-text, .hero-art { grid-column: 1 / -1; } .hero-art { margin-top: 24px; } }
+.meta { display: grid; grid-template-columns: repeat(4, 1fr); margin: clamp(56px, 7vw, 88px) 0 0; border-top: 1px solid var(--cine-line); }
+.meta div { padding: 22px 20px 0 0; display: grid; gap: 4px; }
+.meta div + div { padding-left: 20px; border-left: 1px solid var(--cine-line); }
+.meta dt { font-size: 0.85rem; color: var(--cine-muted); }
+.meta dd { margin: 0; font-family: var(--f-display); font-size: clamp(1.15rem, 1.8vw, 1.5rem); font-weight: 600; letter-spacing: -0.02em; }
+@media (max-width: 720px) {
+  .meta { grid-template-columns: 1fr 1fr; }
+  .meta div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .meta div:nth-child(n+3) { padding-top: 18px; margin-top: 18px; border-top: 1px solid var(--cine-line); }
+}
+
+/* ---------- чек ---------- */
+.receipt-wrap { --surface: #FBFAF6; --ink: #0E1430; --muted: #5B6283; --line: #D6D9E4; --cobalt: #2E44E5;
+  position: relative; width: 100%; max-width: 360px; filter: drop-shadow(0 40px 50px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 60px rgba(46, 68, 229, 0.25)); transform: rotate(3deg); transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+.receipt-wrap:hover { transform: rotate(0deg) translateY(-6px); }
+.receipt { position: relative; background: var(--surface); padding: 26px 24px 30px; font-family: var(--f-mono); font-size: 0.82rem; line-height: 1.5; color: var(--ink); font-variant-numeric: tabular-nums; }
+.receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px;
+  background: linear-gradient(-45deg, transparent 7px, var(--surface) 0) 0 0 / 14px 10px repeat-x, linear-gradient(45deg, transparent 7px, var(--surface) 0) 0 0 / 14px 10px repeat-x; }
+.r-head { text-align: center; display: grid; gap: 2px; padding-bottom: 14px; border-bottom: 1px dashed var(--line); }
+.r-head strong { font-size: 0.95rem; letter-spacing: 0.06em; }
+.r-head span { color: var(--muted); font-size: 0.74rem; }
+.r-rows { display: grid; gap: 7px; padding-block: 14px; border-bottom: 1px dashed var(--line); }
+.r-row { display: flex; justify-content: space-between; gap: 12px; }
+.r-row span:first-child { color: var(--muted); }
+.r-row span:last-child { white-space: nowrap; }
+.r-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; font-weight: 700; }
+.r-total b { font-size: 1.35rem; letter-spacing: -0.02em; }
+.r-foot { margin-top: 14px; color: var(--muted); font-size: 0.72rem; text-align: center; }
+.barcode { height: 34px; margin-top: 14px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px, var(--ink) 8px 11px, transparent 11px 12px); opacity: 0.85; }
+.stamp { position: absolute; right: -22px; top: 42%; padding: 10px 14px; border: 3px double var(--cobalt); border-radius: 10px; color: var(--cobalt); font-family: var(--f-display); font-weight: 900; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.05; text-align: center; transform: rotate(-14deg); background: rgba(251, 250, 246, 0.6); animation: stamp .7s cubic-bezier(.2, 1.6, .4, 1) .5s both; }
+.stamp small { display: block; font-family: var(--f-mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; }
+@keyframes stamp { from { transform: rotate(-26deg) scale(1.6); } to { transform: rotate(-14deg) scale(1); } }
+
+/* ---------- бегущая строка ---------- */
+.ticker { background: var(--gold); color: #1A1200; overflow: hidden; border-block: 1px solid #000; }
+.ticker-track { display: flex; width: max-content; animation: run 38s linear infinite; }
+.ticker span { font-family: var(--f-display); font-weight: 800; font-size: clamp(1.1rem, 2.2vw, 1.6rem); letter-spacing: -0.02em; text-transform: uppercase; padding: 16px 0; white-space: nowrap; display: flex; align-items: center; }
+.ticker span::after { content: "✦"; font-size: 0.8em; margin-inline: 28px; }
+@keyframes run { to { transform: translateX(-50%); } }
+
+/* ---------- три навыка ---------- */
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
+.trio > article { padding: 32px 32px 0 0; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.trio > article + article { padding-left: 32px; border-left: 1px solid var(--line); }
+.trio .word { font-family: var(--f-display); font-weight: 800; font-size: clamp(2rem, 3.4vw, 3rem); letter-spacing: -0.045em; line-height: 1; }
+.trio article:nth-child(2) .word { color: var(--cobalt); }
+.trio p { color: var(--muted); }
+.trio ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.trio li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 0.97rem; }
+.trio li::before { content: ""; width: 7px; height: 7px; margin-top: 0.62em; border-radius: 50%; background: var(--cobalt); }
+@media (max-width: 900px) {
+  .trio { grid-template-columns: 1fr; }
+  .trio > article, .trio > article + article { padding: 28px 0; border-left: 0; }
+  .trio > article + article { border-top: 1px solid var(--line); }
+}
+
+/* ---------- кинолента ---------- */
+.film-edge { height: 30px; background: #000 repeating-linear-gradient(90deg, transparent 0 12px, #2A2E45 12px 30px, transparent 30px 42px) center / 42px 14px repeat-x; }
+.films { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 48px); }
+.film { margin: 0; display: grid; gap: 22px; align-content: start; min-width: 0; }
+.film.feature { grid-column: 1 / -1; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: center; }
+.film.feature .frame { grid-column: 1 / span 8; }
+.film.feature figcaption { grid-column: 9 / span 4; }
+@media (max-width: 900px) { .films { grid-template-columns: 1fr; } .film.feature .frame, .film.feature figcaption { grid-column: 1 / -1; } }
+.frame { position: relative; aspect-ratio: 2.39 / 1; max-width: 100%; border-radius: 6px; overflow: hidden; background: #000; box-shadow: 0 0 0 1px var(--cine-line), 0 40px 60px -30px rgba(0, 0, 0, 0.8); }
+.frame svg { display: block; width: 100%; height: 100%; transition: transform 1.2s cubic-bezier(.2, .8, .2, 1); }
+.film:hover .frame svg { transform: scale(1.05); }
+.frame::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.12; mix-blend-mode: screen; pointer-events: none; }
+.frame::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55)); }
+.frame .lbl { position: absolute; z-index: 2; top: 10px; left: 12px; font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; }
+.frame .rec { position: absolute; z-index: 2; top: 10px; right: 12px; display: flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--cine-ink); }
+.frame .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #FF4B4B; animation: blink 1.6s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0.2; } }
+.sub { position: absolute; z-index: 2; left: 8%; right: 8%; bottom: 8%; text-align: center; font-family: var(--f-body); font-weight: 600; font-size: clamp(0.85rem, 1.6vw, 1.2rem); color: #FFF7D6; text-shadow: 0 1px 2px #000, 0 0 12px rgba(0, 0, 0, 0.9); line-height: 1.3; }
+.film.feature .sub { font-size: clamp(0.95rem, 2vw, 1.45rem); }
+.film figcaption { display: grid; gap: 12px; min-width: 0; }
+.film figcaption .eyebrow b { color: var(--gold); font-weight: 500; }
+.film figcaption h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: -0.03em; }
+.film.feature figcaption h3 { font-size: clamp(1.6rem, 2.8vw, 2.3rem); }
+.film figcaption p { color: var(--cine-muted); }
+.film .lesson { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cine-blue); }
+.disclaimer { margin-top: clamp(40px, 5vw, 56px); font-size: 0.8rem; color: var(--cine-muted); max-width: 70ch; }
+
+/* ---------- программа ---------- */
+.weeks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.week { background: var(--surface); border-radius: var(--radius); padding: 28px; display: grid; gap: 18px; grid-template-rows: auto auto 1fr auto; box-shadow: 0 0 0 1px var(--line); min-width: 0; position: relative; overflow: hidden; transition: box-shadow .25s ease, transform .25s ease; }
+.week:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--cobalt), 0 24px 40px -24px rgba(14, 20, 48, 0.3); }
+.week .ghostnum { position: absolute; right: -6px; bottom: -28px; font-family: var(--f-display); font-weight: 900; font-size: 9rem; line-height: 1; letter-spacing: -0.08em; color: transparent; -webkit-text-stroke: 1.5px var(--line); pointer-events: none; }
+.week > *:not(.ghostnum) { position: relative; }
+.week-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.track { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; width: 96px; }
+.track i { height: 4px; border-radius: 2px; background: var(--line); }
+.track i.on { background: var(--cobalt); }
+.chip { font-family: var(--f-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cobalt); background: var(--cobalt-tint); padding: 5px 10px; border-radius: 999px; }
+.week ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 0.95rem; }
+.week li { padding-left: 18px; position: relative; }
+.week li::before { content: "—"; position: absolute; left: 0; color: var(--cobalt); }
+.week .res { border-top: 1px dashed var(--line); padding-top: 16px; font-size: 0.95rem; max-width: 80%; }
+.week .res span { display: block; font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+@media (max-width: 1000px) { .weeks { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .weeks { grid-template-columns: 1fr; } }
+
+/* ---------- манифест ---------- */
+.manifest { padding-block: clamp(64px, 9vw, 120px); overflow: hidden; }
+.manifest p { font-family: var(--f-display); font-weight: 900; font-size: clamp(2.6rem, 9.2vw, 8.6rem); line-height: 0.92; letter-spacing: -0.06em; text-wrap: balance; }
+.manifest .ol { color: transparent; -webkit-text-stroke: 2px var(--ink); display: block; }
+.manifest .fill { color: var(--cobalt); display: block; }
+.manifest .sig { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line); }
+
+/* ---------- калькуляторы ---------- */
+.calc { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+.calc .inputs { grid-column: 1 / span 6; display: grid; gap: 30px; min-width: 0; }
+.calc .out { grid-column: 8 / span 5; display: grid; gap: 22px; align-content: start; min-width: 0; }
+@media (max-width: 900px) { .calc .inputs, .calc .out { grid-column: 1 / -1; } .calc .out { margin-top: 24px; } }
+.field { display: grid; gap: 12px; }
+.field label { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 0.97rem; color: var(--cine-muted); }
+.field output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-weight: 500; color: var(--cine-ink); font-size: 1.05rem; white-space: nowrap; }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 22px; background: transparent; cursor: pointer; --p: 50%; }
+input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--gold) var(--p), var(--cine-line) var(--p)); }
+input[type="range"]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--cine-line); }
+input[type="range"]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--gold); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -9px; border-radius: 50%; background: var(--cine-ink); border: 5px solid var(--gold); }
+input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--cine-ink); border: 5px solid var(--gold); }
+.big { font-family: var(--f-display); font-weight: 900; font-size: clamp(3.6rem, 9vw, 7rem); line-height: 0.88; letter-spacing: -0.06em; color: var(--gold); font-variant-numeric: tabular-nums; text-shadow: 0 0 60px rgba(255, 181, 71, 0.35); }
+.out p { color: var(--cine-muted); max-width: 44ch; }
+.rows { display: grid; border-top: 1px solid var(--cine-line); }
+.rows div { display: flex; justify-content: space-between; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--cine-line); font-size: 0.97rem; color: var(--cine-muted); }
+.rows b { font-family: var(--f-mono); font-weight: 500; color: var(--cine-ink); font-variant-numeric: tabular-nums; }
+.meter { height: 10px; border-radius: 5px; background: var(--cine-line); overflow: hidden; }
+.meter span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--cine-blue), var(--gold)); border-radius: 5px; transition: width .35s ease; }
+.spot { background: radial-gradient(800px circle at 85% 0%, rgba(46, 68, 229, 0.32), transparent 60%), var(--cine); }
+
+/* ---------- тарифы ---------- */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+.plan { background: var(--surface); border-radius: var(--radius); box-shadow: 0 0 0 1px var(--line); padding: 32px; display: grid; gap: 22px; grid-template-rows: auto auto 1fr auto; min-width: 0; position: relative; }
+.plan .price { font-family: var(--f-display); font-size: clamp(2.2rem, 3.4vw, 2.8rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+.plan .price small { font-size: 0.95rem; font-weight: 500; letter-spacing: 0; color: var(--muted); display: block; margin-top: 8px; font-family: var(--f-body); }
+.plan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; align-content: start; font-size: 0.97rem; }
+.plan li { display: grid; grid-template-columns: 20px 1fr; gap: 10px; }
+.plan li::before { content: ""; width: 14px; height: 8px; margin-top: 0.45em; border-left: 2px solid var(--cobalt); border-bottom: 2px solid var(--cobalt); transform: rotate(-45deg); }
+.plan .btn { width: 100%; }
+.plan.main { background: var(--cine); color: var(--cine-ink); box-shadow: 0 0 0 1px var(--cine-line), 0 40px 60px -30px rgba(46, 68, 229, 0.55); transform: translateY(-14px); overflow: hidden; isolation: isolate; }
+.plan.main::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(420px circle at 100% 0%, rgba(46, 68, 229, 0.55), transparent 65%); }
+.plan.main .eyebrow, .plan.main .price small { color: var(--cine-muted); }
+.plan.main .price { color: var(--gold); }
+.plan.main li::before { border-color: var(--gold); }
+.plan.main .btn { background: var(--gold); color: #1A1200; border-color: var(--gold); }
+.badge { position: absolute; top: 28px; right: 28px; font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: var(--gold); color: #1A1200; }
+.guarantee { margin-top: 32px; display: flex; gap: 14px; align-items: center; color: var(--muted); font-size: 0.95rem; }
+.guarantee svg { flex: none; color: var(--cobalt); }
+@media (max-width: 900px) { .plans { grid-template-columns: 1fr; } .plan.main { transform: none; } }
+
+/* ---------- заявка ---------- */
+.signup { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: start; }
+.signup .intro { grid-column: 1 / span 5; display: grid; gap: 22px; min-width: 0; }
+.signup .intro > p { color: var(--muted); }
+.signup .card { grid-column: 7 / span 6; min-width: 0; }
+@media (max-width: 900px) { .signup .intro, .signup .card { grid-column: 1 / -1; } }
+.after { list-style: none; margin: 8px 0 0; padding: 0; display: grid; counter-reset: a; }
+.after li { counter-increment: a; display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding-block: 16px; border-top: 1px solid var(--line); }
+.after li::before { content: counter(a); font-family: var(--f-mono); font-size: 0.8rem; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 0 0 1px var(--line); color: var(--cobalt); }
+.after b { display: block; font-weight: 600; }
+.after span { color: var(--muted); font-size: 0.95rem; }
+.card { background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--line), 0 40px 60px -40px rgba(14, 20, 48, 0.3); padding: clamp(24px, 4vw, 40px); }
+form { display: grid; gap: 18px; }
+.fl { display: grid; gap: 8px; }
+.fl label, .fl legend { font-size: 0.9rem; font-weight: 500; }
+.fl input, .fl select { font: inherit; font-size: 1rem; padding: 15px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); width: 100%; transition: border-color .2s, box-shadow .2s; }
+.fl input:focus, .fl select:focus { outline: none; border-color: var(--cobalt); box-shadow: 0 0 0 4px var(--cobalt-tint); }
+fieldset.fl { border: 0; padding: 0; margin: 0; }
+fieldset.fl legend { margin-bottom: 8px; padding: 0; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { display: grid; gap: 2px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: border-color .2s, background .2s; }
+.seg label small { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); font-weight: 400; }
+.seg input:checked + label { border-color: var(--cobalt); background: var(--cobalt-tint); }
+.seg input:focus-visible + label { outline: 3px solid var(--cobalt); outline-offset: 2px; }
+@media (max-width: 480px) { .seg { grid-template-columns: 1fr; } }
+.note { font-size: 0.82rem; color: var(--muted); }
+.ok { padding: 16px; border-radius: 12px; background: var(--cobalt-tint); color: var(--ink); font-size: 0.95rem; }
+
+/* ---------- страница 2 ---------- */
+.timeline { display: grid; }
+.step { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; padding-block: 40px; border-top: 1px solid var(--line); transition: background .3s; }
+.step:last-child { border-bottom: 1px solid var(--line); }
+.step .n { grid-column: 1 / span 2; font-family: var(--f-display); font-weight: 900; font-size: clamp(3.4rem, 7vw, 6rem); line-height: 0.82; letter-spacing: -0.07em; color: transparent; -webkit-text-stroke: 2px var(--cobalt); transition: color .3s; }
+.step:hover .n { color: var(--cobalt); }
+.step .when { grid-column: 3 / span 2; padding-top: 8px; display: grid; gap: 4px; align-content: start; }
+.step .when b { font-family: var(--f-mono); font-weight: 500; font-size: 0.9rem; }
+.step .body { grid-column: 5 / span 5; display: grid; gap: 12px; min-width: 0; }
+.step .body h3 { font-size: clamp(1.25rem, 2vw, 1.55rem); letter-spacing: -0.03em; }
+.step .body p { color: var(--muted); }
+.step .check { grid-column: 10 / span 3; list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; align-content: start; font-size: 0.93rem; min-width: 0; }
+.check li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
+.check li::before { content: ""; width: 16px; height: 16px; margin-top: 0.2em; border-radius: 5px; box-shadow: inset 0 0 0 1.5px var(--cobalt); }
+@media (max-width: 1000px) {
+  .step .n { grid-column: 1 / span 3; } .step .when { grid-column: 4 / span 9; }
+  .step .body { grid-column: 1 / span 7; } .step .check { grid-column: 8 / span 5; }
+}
+@media (max-width: 640px) { .step { gap: 16px; } .step .n, .step .when, .step .body, .step .check { grid-column: 1 / -1; } .step .when { padding-top: 0; } }
+
+.table-box { overflow-x: auto; background: var(--surface); border-radius: var(--radius); box-shadow: 0 0 0 1px var(--line); }
+table { border-collapse: collapse; width: 100%; min-width: 820px; }
+th, td { text-align: left; padding: 20px 24px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--f-mono); font-weight: 500; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-block: 16px; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr { transition: background .2s; }
+tbody tr:hover { background: color-mix(in srgb, var(--cobalt-tint) 45%, transparent); }
+td:first-child { font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; letter-spacing: -0.015em; white-space: nowrap; }
+td:nth-child(2) { color: var(--muted); max-width: 40ch; }
+td.mono { white-space: nowrap; font-size: 0.92rem; }
+.dots { display: inline-flex; gap: 4px; vertical-align: middle; margin-right: 8px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.dots.l1 i:nth-child(1), .dots.l2 i:nth-child(-n+2) { background: currentColor; }
+.lvl { white-space: nowrap; font-size: 0.9rem; }
+.lvl.low { color: var(--ok); }
+.lvl.mid { color: var(--mid); }
+.lvl span { color: var(--ink); }
+
+.split { display: grid; gap: 14px; margin-top: 8px; }
+.split-bar { display: grid; grid-template-columns: 5fr 3fr 2fr; height: 56px; border-radius: 12px; overflow: hidden; }
+.split-bar div { display: flex; align-items: center; padding-inline: 14px; font-family: var(--f-mono); font-weight: 700; font-size: 0.95rem; }
+.split-bar div:nth-child(1) { background: var(--cobalt); color: var(--on-cobalt); }
+.split-bar div:nth-child(2) { background: var(--cobalt-tint); color: var(--cobalt); }
+.split-bar div:nth-child(3) { background: var(--line); color: var(--ink); }
+.split-legend { display: grid; grid-template-columns: 5fr 3fr 2fr; font-size: 0.85rem; color: var(--muted); }
+.split-legend span { padding-right: 8px; }
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+.rule-item { display: grid; gap: 10px; padding-block: 28px; border-top: 1px solid var(--line); align-content: start; }
+.rule-item p { color: var(--muted); }
+.rule-item.wide { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; gap: 10px 48px; }
+.rule-item.wide > div { display: grid; gap: 10px; align-content: start; }
+@media (max-width: 800px) { .rules, .rule-item.wide { grid-template-columns: 1fr; } }
+
+.faq { border-top: 1px solid var(--ink); }
+details { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 26px; font-family: var(--f-display); font-size: clamp(1.1rem, 1.8vw, 1.35rem); font-weight: 600; letter-spacing: -0.02em; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: ""; flex: none; width: 36px; height: 36px; border-radius: 50%; box-shadow: 0 0 0 1px var(--line); background: linear-gradient(var(--ink), var(--ink)) center / 12px 1.5px no-repeat, linear-gradient(var(--ink), var(--ink)) center / 1.5px 12px no-repeat; transition: transform .25s ease; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { color: var(--muted); padding-bottom: 26px; max-width: 64ch; }
+
+.cta .wrap { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: end; padding-block: clamp(64px, 9vw, 120px); }
+.cta h2 { grid-column: 1 / span 8; font-size: clamp(2.4rem, 5.6vw, 4.8rem); font-weight: 900; letter-spacing: -0.05em; line-height: 0.95; }
+.cta h2 em { color: var(--gold); }
+.cta .side { grid-column: 9 / span 4; display: grid; gap: 20px; }
+.cta .side p { color: var(--cine-muted); }
+.cta .btn { width: fit-content; }
+@media (max-width: 900px) { .cta h2, .cta .side { grid-column: 1 / -1; } }
+
+footer { background: var(--cine); color: var(--cine-muted); }
+footer .wrap { padding-block: 32px; display: flex; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; font-size: 0.85rem; }
+
+/* ---------- пробный урок ---------- */
+.trial-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: center; }
+.trial-video { grid-column: 1 / span 7; position: relative; isolation: isolate; aspect-ratio: 16 / 9; width: 100%; max-width: 100%; border: 0; padding: clamp(18px, 3vw, 32px); border-radius: 18px; overflow: hidden; cursor: pointer; text-align: left; font: inherit; color: var(--cine-ink);
+  background: radial-gradient(520px circle at 82% 18%, rgba(46, 68, 229, 0.55), transparent 60%), radial-gradient(420px circle at 0% 110%, rgba(255, 181, 71, 0.28), transparent 60%), var(--cine);
+  display: grid; grid-template-rows: auto 1fr auto auto; gap: 12px; box-shadow: 0 40px 70px -35px rgba(14, 20, 48, 0.7); transition: transform .3s ease; }
+.trial-video::after { content: ""; position: absolute; inset: 0; z-index: -1; background-image: var(--grain); opacity: 0.1; mix-blend-mode: screen; pointer-events: none; }
+.trial-video:hover { transform: translateY(-4px); }
+.trial-text { grid-column: 9 / span 4; display: grid; gap: 20px; min-width: 0; }
+.trial-text > p:not(.eyebrow):not(.note) { color: var(--muted); }
+@media (max-width: 900px) { .trial-video, .trial-text { grid-column: 1 / -1; } }
+.tv-top, .tv-bottom { display: flex; justify-content: space-between; gap: 12px; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cine-muted); }
+.tv-free { color: var(--gold); }
+.tv-title { align-self: end; font-family: var(--f-display); font-weight: 900; font-size: clamp(2rem, 5.4vw, 4.4rem); line-height: 0.92; letter-spacing: -0.05em; }
+.tv-title em { color: var(--gold); }
+.tv-play { position: absolute; right: 9%; top: 42%; transform: translateY(-50%); width: clamp(60px, 9vw, 104px); aspect-ratio: 1; border-radius: 50%; background: var(--gold); display: grid; place-items: center; animation: ring 2.2s ease-out infinite; transition: transform .25s ease; }
+.trial-video:hover .tv-play { transform: translateY(-50%) scale(1.08); }
+.tv-play svg { width: 36%; margin-left: 8%; }
+@keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(255, 181, 71, 0.55); } 70%, 100% { box-shadow: 0 0 0 28px rgba(255, 181, 71, 0); } }
+.tv-bar { height: 4px; border-radius: 2px; background: var(--cine-line); position: relative; overflow: hidden; }
+.tv-bar i { position: absolute; inset: 0 auto 0 0; width: 18%; background: var(--gold); }
+.trial-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.trial-list li { display: grid; grid-template-columns: 20px 1fr; gap: 10px; }
+.trial-list li::before { content: ""; width: 14px; height: 8px; margin-top: 0.45em; border-left: 2px solid var(--cobalt); border-bottom: 2px solid var(--cobalt); transform: rotate(-45deg); }
+.linkbtn { display: block; margin-top: 12px; padding: 0; border: 0; background: none; color: var(--cobalt); font: 600 1rem var(--f-body); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.lesson-embed { border-radius: 20px; overflow: hidden; background: var(--cine); box-shadow: 0 0 0 1px var(--cine-line), 0 50px 80px -40px rgba(14, 20, 48, 0.6); }
+.lesson-embed iframe { display: block; width: 100%; height: 760px; border: 0; background: var(--cine); }
+@media (max-width: 980px) { .lesson-embed iframe { height: 1100px; } }
+.embed-note { margin-top: 14px; font-size: 0.88rem; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#kurs" data-go="kurs" aria-label="Первая сделка, на главную">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 15.5l4 4 9-9" fill="none" stroke="#FFB547" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Первая сделка</span>
+    </a>
+    <nav class="tabs" aria-label="Страницы сайта">
+      <a href="#kurs" data-go="kurs" aria-current="page">Курс</a>
+      <a href="#start" data-go="start">Старт и капитал</a>
+    </nav>
+    <a class="btn" href="#kurs" data-go="kurs" data-then="zapis">Записаться</a>
+  </div>
+</header>
+
+<!-- ================= СТРАНИЦА 1 · КУРС ================= -->
+<main id="view-kurs">
+  <div class="cine hero">
+    <div class="letterbox"></div>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="credits"><span>Онлайн-курс <b>«Первая сделка»</b></span><span>В главной роли: <b>вы</b></span></p>
+          <h1>Научитесь <span class="ol">продавать</span> раньше, чем&nbsp;<span class="hl">тратить</span></h1>
+          <p class="lead">Шесть недель продаж, поиска клиентов и управления для тех, кто запускает первый бизнес. Каждую неделю вы пишете и звоните реальным клиентам, а наставник разбирает результат.</p>
+          <div class="actions">
+            <a class="btn" href="#zapis" data-scroll="zapis">Записаться на поток <span class="arr" aria-hidden="true">→</span></a>
+            <a class="btn ghost" href="#probny" data-scroll="probny"><span aria-hidden="true">▶</span> Бесплатный урок</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="receipt-wrap">
+            <div class="receipt" role="img" aria-label="Пример чека первой сделки: 200 контактов, 46 ответов, 14 созвонов, 4 сделки, выручка 100 000 рублей">
+              <div class="r-head"><strong>ЧЕК № 0001</strong><span>Воронка выпускника · 14 дней</span></div>
+              <div class="r-rows">
+                <div class="r-row"><span>Контакты в базе</span><span>200</span></div>
+                <div class="r-row"><span>Ответили</span><span>46</span></div>
+                <div class="r-row"><span>Созвоны</span><span>14</span></div>
+                <div class="r-row"><span>Сделки</span><span>4 × 25 000</span></div>
+                <div class="r-row"><span>Конверсия</span><span>2,0%</span></div>
+              </div>
+              <div class="r-total"><span>ИТОГО</span><b>100 000 ₽</b></div>
+              <div class="barcode"></div>
+              <p class="r-foot">Пример расчёта. Ваши цифры посчитаем на неделе 5.</p>
+            </div>
+            <div class="stamp" aria-hidden="true">Оплачено<small>первая сделка</small></div>
+          </div>
+        </div>
+      </div>
+      <dl class="meta">
+        <div><dt>Премьера потока</dt><dd>16 ноября</dd></div>
+        <div><dt>Хронометраж</dt><dd>6 недель</dd></div>
+        <div><dt>Практика</dt><dd>12 заданий</dd></div>
+        <div><dt>Мест в зале</dt><dd>40</dd></div>
+      </dl>
+    </div>
+    <div class="letterbox"></div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Холодные звонки</span><span>Поиск лидов</span><span>Переговоры</span><span>Работа с возражениями</span><span>CRM и воронка</span><span>План продаж</span><span>Первый найм</span>
+      <span>Холодные звонки</span><span>Поиск лидов</span><span>Переговоры</span><span>Работа с возражениями</span><span>CRM и воронка</span><span>План продаж</span><span>Первый найм</span>
+    </div>
+  </div>
+
+  <section class="wrap" id="probny">
+    <div class="head">
+      <div><p class="eyebrow">Пробный урок · бесплатно · 4:04</p><h2>Посмотрите первый урок до&nbsp;оплаты</h2></div>
+      <p>За пять минут разберём, как накопить стартовый капитал и где взять деньги на первый бизнес, если их пока нет. Без регистрации, с озвучкой и субтитрами.</p>
+    </div>
+    <div class="lesson-embed">
+      <iframe id="lesson-frame" src="urok-1.html#embed" title="Урок 1. Стартовый капитал" allow="fullscreen; autoplay" allowfullscreen></iframe>
+    </div>
+    <p class="embed-note">Включите звук: урок озвучен. Если плеер не загрузился, <a href="urok-1.html" target="_blank" rel="noopener">откройте урок в новой вкладке</a>.</p>
+  </section>
+
+  <section class="wrap" style="padding-top:0">
+    <div class="head">
+      <div><p class="eyebrow">Что вы освоите</p><h2>Три навыка, на которых держится любой малый бизнес</h2></div>
+      <p>Курс подходит, если вы ещё в найме, работаете на себя или уже открыли дело и продаёте всё сами.</p>
+    </div>
+    <div class="trio">
+      <article>
+        <p class="eyebrow">Недели 1 и 4</p>
+        <div class="word">Продажи</div>
+        <p>Как сформулировать оффер, провести разговор и получить оплату без давления на клиента.</p>
+        <ul><li>Оффер в одно предложение</li><li>Вопросы по методике СПИН</li><li>Ответы на «дорого» и «подумаю»</li></ul>
+      </article>
+      <article>
+        <p class="eyebrow">Недели 2 и 3</p>
+        <div class="word">Лиды</div>
+        <p>Где искать клиентов, как собрать базу и написать так, чтобы вам ответили.</p>
+        <ul><li>Портрет идеального клиента</li><li>Сбор базы из 2ГИС, Авито и чатов</li><li>Цепочка из 5–7 касаний</li></ul>
+      </article>
+      <article>
+        <p class="eyebrow">Недели 5 и 6</p>
+        <div class="word">Менеджмент</div>
+        <p>Как считать воронку, планировать продажи и передать часть работы первому сотруднику.</p>
+        <ul><li>CRM и ключевые метрики</li><li>План продаж от цели в рублях</li><li>Найм, регламенты, мотивация</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <div class="cine" id="kino">
+    <div class="film-edge"></div>
+    <section class="wrap">
+      <div class="head">
+        <div><p class="eyebrow">Кинозал · уроки продаж</p><h2>Три сцены из кино, которые разбирают на&nbsp;курсе</h2></div>
+        <p>Голливуд снял лучшие учебники по продажам. Берём из них приём, а не манеру: без крика и давления на клиента.</p>
+      </div>
+      <div class="films">
+        <figure class="film feature">
+          <div class="frame">
+            <span class="lbl">Кадр 01</span><span class="rec">REC</span>
+            <svg viewBox="0 0 480 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <radialGradient id="a1" cx="50%" cy="10%" r="80%"><stop offset="0" stop-color="#2B3160"/><stop offset="1" stop-color="#04050D"/></radialGradient>
+                <linearGradient id="a2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".55"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></linearGradient>
+                <linearGradient id="a3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A5290"/><stop offset=".5" stop-color="#1E2244"/><stop offset="1" stop-color="#0C0E20"/></linearGradient>
+                <linearGradient id="a4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A1C12"/><stop offset="1" stop-color="#0A0705"/></linearGradient>
+              </defs>
+              <rect width="480" height="200" fill="url(#a1)"/>
+              <g opacity=".35" fill="#8F9CFF"><rect x="30" y="30" width="3" height="80"/><rect x="60" y="20" width="3" height="90"/><rect x="420" y="25" width="3" height="85"/><rect x="448" y="35" width="3" height="75"/></g>
+              <polygon points="214,0 266,0 370,152 110,152" fill="url(#a2)"/>
+              <rect y="150" width="480" height="50" fill="url(#a4)"/>
+              <rect y="149" width="480" height="2" fill="#5A4026"/>
+              <ellipse cx="240" cy="153" rx="120" ry="9" fill="#FFE2A8" opacity=".22"/>
+              <g transform="rotate(-7 240 140)">
+                <ellipse cx="240" cy="150" rx="95" ry="4" fill="#000" opacity=".5"/>
+                <rect x="158" y="134" width="150" height="10" rx="5" fill="url(#a3)"/>
+                <rect x="292" y="133" width="44" height="12" rx="6" fill="#C9A24A"/>
+                <rect x="300" y="128" width="30" height="3.5" rx="1.75" fill="#F0D488"/>
+                <rect x="232" y="134" width="6" height="10" fill="#C9A24A"/>
+                <polygon points="158,134.5 158,143.5 138,139" fill="#C9A24A"/>
+                <rect x="170" y="135.5" width="120" height="2" rx="1" fill="#fff" opacity=".25"/>
+              </g>
+            </svg>
+            <p class="sub">— Продай мне эту ручку.</p>
+          </div>
+          <figcaption>
+            <p class="eyebrow"><b>«Волк с Уолл-стрит»</b> · 2013</p>
+            <h3>Продавайте потребность, а&nbsp;не&nbsp;предмет</h3>
+            <p>Сильный продавец сначала спрашивает, зачем человеку ручка и когда она ему нужна. Без потребности нет сделки, сколько ни хвали товар.</p>
+            <p class="lesson">На курсе → неделя 4, вопросы по СПИН</p>
+          </figcaption>
+        </figure>
+
+        <figure class="film">
+          <div class="frame">
+            <span class="lbl">Кадр 02</span>
+            <svg viewBox="0 0 480 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1A1E"/><stop offset="1" stop-color="#05080A"/></linearGradient>
+                <radialGradient id="b2" cx="78%" cy="0%" r="60%"><stop offset="0" stop-color="#FFB547" stop-opacity=".45"/><stop offset="1" stop-color="#FFB547" stop-opacity="0"/></radialGradient>
+              </defs>
+              <rect width="480" height="200" fill="url(#b1)"/>
+              <rect x="18" y="22" width="70" height="120" fill="#122A33"/>
+              <g stroke="#6FA7BA" stroke-width="1" opacity=".5"><path d="M26 30l-6 22M44 26l-6 22M62 40l-6 22M80 32l-6 22M30 70l-6 22M52 78l-6 22M72 66l-6 22M36 108l-6 22M66 112l-6 22"/></g>
+              <rect x="18" y="22" width="70" height="120" fill="none" stroke="#2B3A40" stroke-width="5"/>
+              <rect width="480" height="200" fill="url(#b2)"/>
+              <rect x="120" y="28" width="250" height="122" rx="3" fill="#1C2A23" stroke="#6B5236" stroke-width="9"/>
+              <g font-family="Geologica, Arial, sans-serif" font-weight="800" font-size="70" fill="#EEECE2" opacity=".92">
+                <text x="150" y="122">A</text><text x="222" y="122">B</text><text x="294" y="122">C</text>
+              </g>
+              <path d="M150 132 Q245 140 342 130" stroke="#EEECE2" stroke-width="3" fill="none" opacity=".7" stroke-linecap="round"/>
+              <g fill="#EEECE2" opacity=".18"><circle cx="210" cy="52" r="10"/><circle cx="320" cy="60" r="7"/></g>
+              <path d="M378 0 L378 30 M364 30 h28 l-6 12 h-16z" stroke="#3A3A3A" stroke-width="3" fill="#2A2A2A"/>
+              <rect y="160" width="480" height="40" fill="#030405"/>
+              <rect x="40" y="150" width="120" height="14" rx="2" fill="#0B0F12"/><rect x="330" y="150" width="120" height="14" rx="2" fill="#0B0F12"/>
+            </svg>
+            <p class="sub">— A, B, C. Всегда закрывай сделку.</p>
+          </div>
+          <figcaption>
+            <p class="eyebrow"><b>«Гленгарри Глен Росс»</b> · 1992</p>
+            <h3>Каждый разговор ведите к следующему шагу</h3>
+            <p>Не обязательно сразу к оплате. Но к конкретному действию: встрече, коммерческому предложению, тесту. Разговор без следующего шага потерян.</p>
+            <p class="lesson">На курсе → неделя 4, закрытие сделки</p>
+          </figcaption>
+        </figure>
+
+        <figure class="film">
+          <div class="frame">
+            <span class="lbl">Кадр 03</span>
+            <svg viewBox="0 0 480 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <radialGradient id="c1" cx="50%" cy="45%" r="70%"><stop offset="0" stop-color="#2A1A3E"/><stop offset="1" stop-color="#05040C"/></radialGradient>
+                <linearGradient id="c2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A4176"/><stop offset="1" stop-color="#141733"/></linearGradient>
+              </defs>
+              <rect width="480" height="200" fill="url(#c1)"/>
+              <text x="240" y="175" text-anchor="middle" font-family="Geologica, Arial, sans-serif" font-weight="900" font-size="210" fill="#FFB547" opacity=".16">$</text>
+              <g fill="#FFB547" opacity=".55"><circle cx="70" cy="40" r="2"/><circle cx="410" cy="56" r="2.5"/><circle cx="120" cy="150" r="1.5"/><circle cx="380" cy="140" r="2"/><circle cx="440" cy="110" r="1.5"/><circle cx="40" cy="100" r="1.5"/></g>
+              <ellipse cx="240" cy="166" rx="80" ry="6" fill="#000" opacity=".6"/>
+              <path d="M172 164 Q182 112 240 110 Q298 112 308 164 Z" fill="url(#c2)" stroke="#4E5699" stroke-width="1.5"/>
+              <circle cx="240" cy="140" r="20" fill="#0B0D20" stroke="#C9A24A" stroke-width="2"/>
+              <g fill="#C9A24A"><circle cx="240" cy="126" r="2.6"/><circle cx="251" cy="130" r="2.6"/><circle cx="254" cy="141" r="2.6"/><circle cx="248" cy="151" r="2.6"/><circle cx="232" cy="151" r="2.6"/><circle cx="226" cy="141" r="2.6"/><circle cx="229" cy="130" r="2.6"/></g>
+              <path d="M168 100 Q240 74 312 100 L306 114 Q240 94 174 114 Z" fill="#2E3466" stroke="#4E5699" stroke-width="1.5"/>
+              <ellipse cx="172" cy="108" rx="14" ry="9" fill="#2E3466" stroke="#4E5699" stroke-width="1.5"/>
+              <ellipse cx="308" cy="108" rx="14" ry="9" fill="#2E3466" stroke="#4E5699" stroke-width="1.5"/>
+              <path d="M308 160 q14 4 10 14 q-4 10 10 12 q14 2 10 12" stroke="#4E5699" stroke-width="2" fill="none"/>
+            </svg>
+            <p class="sub">— Покажи мне деньги!</p>
+          </div>
+          <figcaption>
+            <p class="eyebrow"><b>«Джерри Магуайер»</b> · 1996</p>
+            <h3>Клиент покупает результат в&nbsp;рублях</h3>
+            <p>Переводите пользу в деньги: сколько клиент заработает или сэкономит за месяц. Это убеждает сильнее любого списка возможностей.</p>
+            <p class="lesson">На курсе → неделя 1, формула оффера</p>
+          </figcaption>
+        </figure>
+      </div>
+      <p class="disclaimer">Иллюстрации нарисованы специально для сайта и не являются кадрами из фильмов. Названия фильмов и цитаты принадлежат их правообладателям и приводятся в учебных целях.</p>
+    </section>
+    <div class="film-edge"></div>
+  </div>
+
+  <section class="wrap" id="programma">
+    <div class="head">
+      <div><p class="eyebrow">Программа</p><h2>От первого контакта до&nbsp;первого сотрудника</h2></div>
+      <p>Модули идут по порядку: каждое задание использует результат предыдущей недели.</p>
+    </div>
+    <div class="weeks" id="weeks"></div>
+  </section>
+
+  <section class="cine spot">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="eyebrow">Калькулятор воронки</p><h2>Сколько клиентов нужно найти, чтобы выйти на&nbsp;ваш доход</h2></div>
+        <p>Укажите цель и средний чек. Конверсии по умолчанию типичны для холодных продаж малого бизнеса.</p>
+      </div>
+      <div class="calc">
+        <div class="inputs">
+          <div class="field"><label for="c-goal">Выручка в месяц <output id="o-goal"></output></label><input type="range" id="c-goal" min="30000" max="1000000" step="10000" value="200000"></div>
+          <div class="field"><label for="c-check">Средний чек <output id="o-check"></output></label><input type="range" id="c-check" min="1000" max="200000" step="1000" value="25000"></div>
+          <div class="field"><label for="c-reply">Отвечают на касания <output id="o-reply"></output></label><input type="range" id="c-reply" min="2" max="50" step="1" value="20"></div>
+          <div class="field"><label for="c-close">Из ответивших покупают <output id="o-close"></output></label><input type="range" id="c-close" min="2" max="50" step="1" value="10"></div>
+        </div>
+        <div class="out" aria-live="polite">
+          <p class="eyebrow">Контактов в месяц</p>
+          <div class="big" id="r-leads">—</div>
+          <p id="r-text"></p>
+          <div class="rows">
+            <div><span>Сделок в месяц</span><b id="r-deals">—</b></div>
+            <div><span>Ответов в месяц</span><b id="r-replies">—</b></div>
+            <div><span>Контактов в рабочий день</span><b id="r-day">—</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap manifest">
+    <p><span class="ol">Каждая история успеха</span><span class="fill">начинается с первого звонка</span></p>
+    <div class="sig"><span class="eyebrow">Манифест курса</span><span class="eyebrow">Ваш звонок — неделя 3</span></div>
+  </div>
+
+  <section class="wrap" id="tarify" style="padding-top:0">
+    <div class="head">
+      <div><p class="eyebrow">Тарифы</p><h2>Выберите, сколько поддержки вам нужно</h2></div>
+      <p>Можно оплатить частями на любом тарифе. Перейти на тариф выше можно в течение первой недели с доплатой разницы.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <p class="eyebrow">Самостоятельно</p>
+        <p class="price">14 900 ₽<small>или 3 платежа по 4 967 ₽</small></p>
+        <ul><li>18 уроков по 20–30 минут</li><li>Шаблоны скриптов и писем</li><li>Таблица для базы лидов</li><li>Доступ на 6 месяцев</li></ul>
+        <a class="btn ghost" href="#zapis" data-scroll="zapis" data-plan="solo">Выбрать</a>
+      </div>
+      <div class="plan main">
+        <span class="badge">Хит потока</span>
+        <p class="eyebrow">С наставником</p>
+        <p class="price">29 900 ₽<small>или 3 платежа по 9 967 ₽</small></p>
+        <ul><li>Всё из тарифа «Самостоятельно»</li><li>Проверка всех 12 заданий</li><li>6 групповых разборов в Zoom</li><li>Чат потока и наставника</li></ul>
+        <a class="btn" href="#zapis" data-scroll="zapis" data-plan="mentor">Выбрать</a>
+      </div>
+      <div class="plan">
+        <p class="eyebrow">Личный</p>
+        <p class="price">69 900 ₽<small>или 3 платежа по 23 300 ₽</small></p>
+        <ul><li>Всё из тарифа «С наставником»</li><li>4 личные сессии по вашему бизнесу</li><li>Аудит воронки и CRM</li><li>Поддержка 30 дней после курса</li></ul>
+        <a class="btn ghost" href="#zapis" data-scroll="zapis" data-plan="vip">Выбрать</a>
+      </div>
+    </div>
+    <p class="guarantee"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 2l10 4v7c0 6.5-4.3 11.2-10 13-5.7-1.8-10-6.5-10-13V6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 14l3 3 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Если после первой недели курс вам не подойдёт, вернём деньги полностью.</p>
+  </section>
+
+  <section class="wrap" id="zapis" style="padding-top:0">
+    <div class="signup">
+      <div class="intro">
+        <p class="eyebrow">Запись на поток</p>
+        <h2>Оставьте заявку на&nbsp;курс</h2>
+        <p>Мы перезвоним в течение рабочего дня и поможем выбрать тариф под вашу ситуацию.</p>
+        <ol class="after">
+          <li><div><b>Короткий звонок</b><span>15 минут: спросим о вашей идее или бизнесе</span></div></li>
+          <li><div><b>Подбор тарифа</b><span>Посоветуем формат и при желании разобьём оплату</span></div></li>
+          <li><div><b>Доступ к курсу</b><span>Откроем вводный урок сразу после оплаты</span></div></li>
+        </ol>
+      </div>
+      <div class="card">
+        <form id="lead-form" novalidate>
+          <div class="fl"><label for="f-name">Как вас зовут</label><input type="text" id="f-name" name="name" autocomplete="name" placeholder="Анна"></div>
+          <div class="fl"><label for="f-phone">Телефон или Telegram</label><input type="tel" id="f-phone" name="phone" autocomplete="tel" placeholder="+7 900 000-00-00 или @username"></div>
+          <div class="fl"><label for="f-stage">На каком вы этапе</label>
+            <select id="f-stage" name="stage"><option>Есть только идея</option><option>Работаю на себя</option><option>Уже есть бизнес</option></select></div>
+          <fieldset class="fl">
+            <legend>Тариф</legend>
+            <div class="seg">
+              <input type="radio" name="plan" id="p-solo" value="solo"><label for="p-solo">Сам<small>14 900 ₽</small></label>
+              <input type="radio" name="plan" id="p-mentor" value="mentor" checked><label for="p-mentor">С наставником<small>29 900 ₽</small></label>
+              <input type="radio" name="plan" id="p-vip" value="vip"><label for="p-vip">Личный<small>69 900 ₽</small></label>
+            </div>
+          </fieldset>
+          <button class="btn" type="submit">Отправить заявку <span class="arr" aria-hidden="true">→</span></button>
+          <p id="f-msg" class="note" role="status">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= СТРАНИЦА 2 · СТАРТ И КАПИТАЛ ================= -->
+<main id="view-start" hidden>
+  <div class="cine hero">
+    <div class="letterbox"></div>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="credits"><span>Открытый урок <b>№ 0</b></span><span>Бесплатно</span></p>
+          <h1>Первый бизнес на&nbsp;<span class="ol">свои</span> деньги, а&nbsp;не&nbsp;<span class="hl">в&nbsp;долг</span></h1>
+          <p class="lead">Большинство первых бизнесов можно запустить с продажи, а не с вложений. Ниже план запуска на 30 дней и шесть способов собрать стартовый капитал, пока вы проверяете идею.</p>
+          <div class="actions">
+            <a class="btn" href="#plan" data-scroll="plan">План на 30 дней <span class="arr" aria-hidden="true">→</span></a>
+            <a class="btn ghost" href="#kapital" data-scroll="kapital">Где взять капитал</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="receipt-wrap" style="transform:rotate(-3deg)">
+            <div class="receipt" role="img" aria-label="Смета запуска бизнеса на услугах: итого 15 000 рублей">
+              <div class="r-head"><strong>СМЕТА ЗАПУСКА</strong><span>Бизнес на услугах · пример</span></div>
+              <div class="r-rows">
+                <div class="r-row"><span>Регистрация НПД</span><span>0 ₽</span></div>
+                <div class="r-row"><span>Сайт-визитка</span><span>0 ₽</span></div>
+                <div class="r-row"><span>CRM, бесплатный тариф</span><span>0 ₽</span></div>
+                <div class="r-row"><span>Визитки, листовки</span><span>3 000 ₽</span></div>
+                <div class="r-row"><span>Тест рекламы</span><span>12 000 ₽</span></div>
+              </div>
+              <div class="r-total"><span>ИТОГО</span><b>15 000 ₽</b></div>
+              <div class="barcode"></div>
+              <p class="r-foot">Окупается первыми 1–2 клиентами.</p>
+            </div>
+            <div class="stamp" aria-hidden="true">Без кредита<small>проверено</small></div>
+          </div>
+        </div>
+      </div>
+      <dl class="meta">
+        <div><dt>Срок запуска</dt><dd>30 дней</dd></div>
+        <div><dt>Минимум вложений</dt><dd>от 0 ₽</dd></div>
+        <div><dt>Цель первого месяца</dt><dd>3 оплаты</dd></div>
+        <div><dt>Время в неделю</dt><dd>8–10 часов</dd></div>
+      </dl>
+    </div>
+    <div class="letterbox"></div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Сначала продажа</span><span>Потом вложения</span><span>Без кредитов</span><span>3 оплаты за 30 дней</span><span>Отдельный счёт</span><span>Подушка на 6 месяцев</span>
+      <span>Сначала продажа</span><span>Потом вложения</span><span>Без кредитов</span><span>3 оплаты за 30 дней</span><span>Отдельный счёт</span><span>Подушка на 6 месяцев</span>
+    </div>
+  </div>
+
+  <section class="wrap" id="plan">
+    <div class="head">
+      <div><p class="eyebrow">Запуск за 30 дней</p><h2>Пять шагов от идеи до первой выручки</h2></div>
+      <p>Не переходите к следующему шагу, пока не закрыт чек-лист текущего. Так вы не потратите деньги на идею без спроса.</p>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="n">01</div>
+        <div class="when"><span class="eyebrow">Дни</span><b>1–3</b></div>
+        <div class="body"><h3>Выберите нишу по трём фильтрам</h3><p>Ищите пересечение трёх вещей: что вы умеете, за что уже платят и где у вас есть доступ к клиентам. Ниша, где вы лично знаете 20 покупателей, лучше модной ниши без знакомств.</p></div>
+        <ul class="check"><li>10 идей оценены по фильтрам</li><li>Найдены 3 конкурента с выручкой</li><li>Выбрана одна ниша</li></ul>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <div class="when"><span class="eyebrow">Дни</span><b>4–10</b></div>
+        <div class="body"><h3>Проверьте спрос разговорами</h3><p>Проведите 15–20 коротких интервью с будущими клиентами. Спрашивайте о прошлом опыте, а не о планах: «Как вы решали эту задачу в последний раз и сколько заплатили?»</p></div>
+        <ul class="check"><li>Проведено 15+ интервью</li><li>Боли записаны дословно</li><li>Оффер сформулирован словами клиентов</li></ul>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <div class="when"><span class="eyebrow">Дни</span><b>11–20</b></div>
+        <div class="body"><h3>Продайте до того, как вложитесь</h3><p>Предложите продукт по предоплате или как пилот: услугу руками, предзаказ, ручную сборку. Если не платят даже со скидкой, вернитесь ко второму шагу.</p></div>
+        <ul class="check"><li>Сделано 50+ предложений</li><li>Получены первые 3 оплаты</li><li>Посчитана маржа каждой сделки</li></ul>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <div class="when"><span class="eyebrow">Дни</span><b>21–25</b></div>
+        <div class="body"><h3>Оформите бизнес легально</h3><p>Для старта обычно хватает самозанятости: налог 4% с физлиц и 6% с юрлиц, лимит 2,4 млн ₽ в год. С ростом выручки или первыми сотрудниками переходите на ИП. Актуальные ставки проверьте на сайте ФНС.</p></div>
+        <ul class="check"><li>Выбрана форма: НПД или ИП</li><li>Открыт отдельный счёт</li><li>Готов шаблон договора</li></ul>
+      </div>
+      <div class="step">
+        <div class="n">05</div>
+        <div class="when"><span class="eyebrow">Дни</span><b>26–30</b></div>
+        <div class="body"><h3>Превратите первые продажи в систему</h3><p>Заведите воронку в CRM или таблице, поставьте план касаний на день и найдите канал, откуда пришли первые клиенты. Его и нужно масштабировать.</p></div>
+        <ul class="check"><li>Все сделки в одной CRM</li><li>Известна конверсия этапов</li><li>Есть план на следующий месяц</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="cine">
+    <div class="film-edge"></div>
+    <section class="wrap">
+      <div class="head">
+        <div><p class="eyebrow">Кинозал · как начинали</p><h2>Три истории старта, снятые Голливудом</h2></div>
+        <p>У каждого героя не было ни капитала, ни связей. Был приём, который вы можете повторить в своём бизнесе.</p>
+      </div>
+      <div class="films">
+        <figure class="film feature">
+          <div class="frame">
+            <span class="lbl">Кадр 04</span><span class="rec">REC</span>
+            <svg viewBox="0 0 480 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="d1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1030"/><stop offset="1" stop-color="#03040B"/></linearGradient>
+                <pattern id="d2" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#E8B923"/><rect width="8" height="8" fill="#111"/><rect x="8" y="8" width="8" height="8" fill="#111"/></pattern>
+                <radialGradient id="d3" cx="50%" cy="55%" r="45%"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".28"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></radialGradient>
+              </defs>
+              <rect width="480" height="200" fill="url(#d1)"/>
+              <g id="bokeh"></g>
+              <rect x="0" y="0" width="480" height="200" fill="none" stroke="#000" stroke-width="44"/>
+              <rect x="22" y="22" width="436" height="140" rx="22" fill="none" stroke="#141414" stroke-width="6"/>
+              <rect width="480" height="200" fill="url(#d3)"/>
+              <g id="cube"></g>
+              <rect x="0" y="166" width="480" height="16" fill="url(#d2)"/>
+              <rect x="0" y="182" width="480" height="18" fill="#E8B923"/>
+            </svg>
+            <p class="sub">[Кубик Рубика собран за одну поездку в такси]</p>
+          </div>
+          <figcaption>
+            <p class="eyebrow"><b>«В погоне за счастьем»</b> · 2006</p>
+            <h3>Используйте каждую минуту с&nbsp;тем, кто принимает решение</h3>
+            <p>Крис Гарднер получил шанс на стажировку, потому что не упустил короткую поездку с руководителем. Подготовьте рассказ о себе на 30 секунд заранее, до встречи.</p>
+            <p class="lesson">Навык → презентация себя и оффера</p>
+          </figcaption>
+        </figure>
+
+        <figure class="film">
+          <div class="frame">
+            <span class="lbl">Кадр 05</span>
+            <svg viewBox="0 0 480 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="e1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2370"/><stop offset=".55" stop-color="#C2566A"/><stop offset=".8" stop-color="#FFB547"/></linearGradient>
+                <linearGradient id="e2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26283A"/><stop offset="1" stop-color="#0A0B12"/></linearGradient>
+              </defs>
+              <rect width="480" height="200" fill="url(#e1)"/>
+              <circle cx="340" cy="128" r="30" fill="#FFE2A8" opacity=".9"/>
+              <path d="M0 132 Q90 116 180 130 T360 126 T480 130 V200 H0Z" fill="#2A1830" opacity=".85"/>
+              <polygon points="150,200 330,200 252,128 228,128" fill="url(#e2)"/>
+              <g fill="#FFE2A8"><polygon points="238,200 244,200 241,172 239,172"/><polygon points="239.6,162 240.6,162 240.4,148 239.8,148"/></g>
+              <rect x="44" y="108" width="110" height="46" fill="#F2F0EA"/>
+              <g><rect x="38" y="96" width="122" height="14" fill="#D7263D"/><rect x="38" y="96" width="15" height="14" fill="#F2F0EA"/><rect x="68" y="96" width="15" height="14" fill="#F2F0EA"/><rect x="98" y="96" width="15" height="14" fill="#F2F0EA"/><rect x="128" y="96" width="15" height="14" fill="#F2F0EA"/></g>
+              <rect x="58" y="120" width="34" height="22" fill="#FFB547" opacity=".85"/><rect x="104" y="120" width="34" height="22" fill="#FFB547" opacity=".85"/>
+              <rect x="186" y="56" width="4" height="98" fill="#222"/>
+              <rect x="160" y="34" width="58" height="30" rx="4" fill="#0B0D20" stroke="#FFB547" stroke-width="2"/>
+              <text x="189" y="56" text-anchor="middle" font-family="Geologica, Arial, sans-serif" font-weight="900" font-size="20" fill="#FFB547">15¢</text>
+            </svg>
+            <p class="sub">— Ничто в мире не заменит настойчивость.</p>
+          </div>
+          <figcaption>
+            <p class="eyebrow"><b>«Основатель»</b> · 2016</p>
+            <h3>Ищите работающую модель, а&nbsp;не&nbsp;идею с&nbsp;нуля</h3>
+            <p>Рэй Крок не изобретал закусочную. Он увидел чужую систему, которая уже работала, и масштабировал её. Ваш первый бизнес может повторить то, что уже продаётся.</p>
+            <p class="lesson">План → шаг 1, три конкурента с выручкой</p>
+          </figcaption>
+        </figure>
+
+        <figure class="film">
+          <div class="frame">
+            <span class="lbl">Кадр 06</span>
+            <svg viewBox="0 0 480 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="f1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#060918"/><stop offset="1" stop-color="#121735"/></linearGradient>
+                <radialGradient id="f2" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#C9D2FF"/><stop offset="1" stop-color="#4A5BD8"/></radialGradient>
+              </defs>
+              <rect width="480" height="200" fill="url(#f1)"/>
+              <rect x="70" y="20" width="340" height="200" fill="#2A1B18"/>
+              <g id="dorm"></g>
+              <rect x="214" y="92" width="52" height="46" fill="url(#f2)"/>
+              <circle cx="240" cy="116" r="8" fill="#060918"/>
+              <path d="M222 138 Q224 124 240 124 Q256 124 258 138Z" fill="#060918"/>
+              <rect x="226" y="132" width="28" height="6" fill="#E6EBFF"/>
+              <rect x="214" y="92" width="52" height="46" fill="none" stroke="#120C0B" stroke-width="3"/>
+              <rect x="210" y="138" width="60" height="4" fill="#3A2A26"/>
+              <polygon points="214,142 266,142 300,200 180,200" fill="#8F9CFF" opacity=".08"/>
+              <g fill="#fff" opacity=".7"><circle cx="40" cy="30" r="1.4"/><circle cx="20" cy="80" r="1"/><circle cx="450" cy="40" r="1.4"/><circle cx="430" cy="120" r="1"/><circle cx="60" cy="150" r="1.2"/><circle cx="460" cy="170" r="1.2"/></g>
+            </svg>
+            <p class="sub">[Сначала только для студентов одного Гарварда]</p>
+          </div>
+          <figcaption>
+            <p class="eyebrow"><b>«Социальная сеть»</b> · 2010</p>
+            <h3>Захватите маленький рынок, потом расширяйтесь</h3>
+            <p>Facebook запускался для одного университета и шёл дальше, только когда там им пользовались почти все. Найдите первых 100 клиентов в одном районе или одной нише.</p>
+            <p class="lesson">Курс → неделя 2, портрет клиента</p>
+          </figcaption>
+        </figure>
+      </div>
+      <p class="disclaimer">Иллюстрации нарисованы специально для сайта и не являются кадрами из фильмов. Названия фильмов и цитаты принадлежат их правообладателям и приводятся в учебных целях.</p>
+    </section>
+    <div class="film-edge"></div>
+  </div>
+
+  <section class="wrap" id="kapital">
+    <div class="head">
+      <div><p class="eyebrow">Стартовый капитал</p><h2>Шесть способов заработать первые деньги на бизнес</h2></div>
+      <p>Все они требуют навыка продаж и почти не требуют вложений. Цифры ориентировочные и зависят от города и ниши.<button class="linkbtn" type="button" data-lesson>▶ Смотреть бесплатный видеоурок об этом</button></p>
+    </div>
+    <div class="table-box">
+      <table>
+        <thead><tr><th>Модель</th><th>Суть</th><th>Вложения</th><th>Первые деньги</th><th>Сложность</th></tr></thead>
+        <tbody>
+          <tr><td>Услуги руками</td><td>Уборка, ремонт, монтаж, репетиторство, дизайн. Вы продаёте своё время.</td><td class="mono">0–20 тыс ₽</td><td class="mono">1–2 недели</td><td><span class="lvl low"><span class="dots l1"><i></i><i></i><i></i></span><span>Низкая</span></span></td></tr>
+          <tr><td>Агентская модель</td><td>Находите клиентов для подрядчика и берёте 10–30% от сделки.</td><td class="mono">0 ₽</td><td class="mono">2–4 недели</td><td><span class="lvl low"><span class="dots l1"><i></i><i></i><i></i></span><span>Низкая</span></span></td></tr>
+          <tr><td>Продажи за процент</td><td>Работаете менеджером на сдельной оплате и учитесь продавать за чужие деньги.</td><td class="mono">0 ₽</td><td class="mono">около месяца</td><td><span class="lvl low"><span class="dots l1"><i></i><i></i><i></i></span><span>Низкая</span></span></td></tr>
+          <tr><td>Лидогенерация</td><td>Собираете заявки для местного бизнеса через рекламу или холодные касания и продаёте их.</td><td class="mono">10–30 тыс ₽</td><td class="mono">2–4 недели</td><td><span class="lvl mid"><span class="dots l2"><i></i><i></i><i></i></span><span>Средняя</span></span></td></tr>
+          <tr><td>Перепродажа</td><td>Покупаете дешевле у оптовиков или на Авито и продаёте дороже. Начните с одной категории.</td><td class="mono">20–50 тыс ₽</td><td class="mono">1–3 недели</td><td><span class="lvl mid"><span class="dots l2"><i></i><i></i><i></i></span><span>Средняя</span></span></td></tr>
+          <tr><td>Фриланс-сервис</td><td>Ведение соцсетей, настройка CRM, тексты. Упаковываете в пакет с фиксированной ценой.</td><td class="mono">0–10 тыс ₽</td><td class="mono">2–6 недель</td><td><span class="lvl mid"><span class="dots l2"><i></i><i></i><i></i></span><span>Средняя</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="cine spot">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="eyebrow">Калькулятор капитала</p><h2>Через сколько месяцев у вас будут деньги на запуск</h2></div>
+        <p>Укажите бюджет запуска и сколько вы можете откладывать каждый месяц.</p>
+      </div>
+      <div class="calc">
+        <div class="inputs">
+          <div class="field"><label for="k-target">Нужно на запуск <output id="ko-target"></output></label><input type="range" id="k-target" min="50000" max="3000000" step="50000" value="500000"></div>
+          <div class="field"><label for="k-have">Уже накоплено <output id="ko-have"></output></label><input type="range" id="k-have" min="0" max="1000000" step="10000" value="50000"></div>
+          <div class="field"><label for="k-side">Доход от подработки в месяц <output id="ko-side"></output></label><input type="range" id="k-side" min="0" max="300000" step="5000" value="60000"></div>
+          <div class="field"><label for="k-salary">Откладываю с зарплаты <output id="ko-salary"></output></label><input type="range" id="k-salary" min="0" max="200000" step="5000" value="20000"></div>
+        </div>
+        <div class="out" aria-live="polite">
+          <p class="eyebrow">Капитал будет собран через</p>
+          <div class="big" id="k-months">—</div>
+          <div class="meter" aria-hidden="true"><span id="k-meter"></span></div>
+          <p id="k-text"></p>
+          <div class="rows">
+            <div><span>Осталось собрать</span><b id="k-gap">—</b></div>
+            <div><span>Откладываете в месяц</span><b id="k-month">—</b></div>
+            <div><span>Если поднять подработку на 50%</span><b id="k-boost">—</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Правила денег</p><h2>Четыре правила, которые сохранят первый капитал</h2></div>
+    </div>
+    <div class="rules">
+      <div class="rule-item"><h3>Не берите кредит на непроверенную идею</h3><p>Заёмные деньги оправданы, когда уже есть продажи и понятная маржа. До этого кредит превращает эксперимент в долг.</p></div>
+      <div class="rule-item"><h3>Держите подушку на 3–6 месяцев жизни</h3><p>Не вкладывайте в бизнес деньги на аренду и еду. С подушкой вы принимаете решения спокойно.</p></div>
+      <div class="rule-item"><h3>Разделите личные и рабочие деньги</h3><p>Отдельная карта или счёт с первого дня. Иначе не понять, зарабатывает бизнес или проедает сбережения.</p></div>
+      <div class="rule-item"><h3>Запишите правило распределения прибыли</h3><p>Пропорции можно менять, но правило должно существовать до первой крупной выручки.</p></div>
+      <div class="rule-item wide">
+        <div><p class="eyebrow">Пример: правило 50 / 30 / 20</p><p>Из каждых 100 000 ₽ прибыли половина идёт на рост, 30 000 ₽ вам и 20 000 ₽ в резерв бизнеса.</p></div>
+        <div class="split">
+          <div class="split-bar" role="img" aria-label="50% рост, 30% себе, 20% резерв"><div>50%</div><div>30%</div><div>20%</div></div>
+          <div class="split-legend"><span>Рост и реклама</span><span>Себе</span><span>Резерв</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-top:0">
+    <div class="head">
+      <div><p class="eyebrow">Вопросы</p><h2>Частые вопросы о запуске</h2></div>
+    </div>
+    <div class="faq">
+      <details><summary>Можно ли начать бизнес совсем без денег?</summary><p>Да, если начинать с услуг или агентской модели. Вы продаёте своё время или чужой продукт, а вложения ограничиваются телефоном, ноутбуком и интернетом. Деньги понадобятся позже, на рост.</p></details>
+      <details><summary>Я не умею продавать. Мне это подходит?</summary><p>Продажи — навык, а не черта характера. Большинство людей уверенно чувствуют себя после 50–100 реальных разговоров. На курсе вы получите скрипты, которые снимают страх первого звонка.</p></details>
+      <details><summary>Можно совмещать с основной работой?</summary><p>Да. На проверку идеи и курс хватает 8–10 часов в неделю: звонки и письма в обед и вечером, разборы по выходным.</p></details>
+      <details><summary>Что делать, если идея не подтвердилась?</summary><p>Это нормальный результат проверки. Вы потратили 2–3 недели вместо полугода и сбережений. Вернитесь к первому шагу и возьмите следующую идею из списка.</p></details>
+    </div>
+  </section>
+
+  <section class="cine cta spot" style="padding-block:0">
+    <div class="letterbox"></div>
+    <div class="wrap">
+      <h2>Ваш фильм об успехе начинается с&nbsp;<em>первой сделки</em></h2>
+      <div class="side">
+        <p>Шесть недель практики на реальных клиентах с наставником. Поток стартует 16 ноября.</p>
+        <div class="actions">
+          <a class="btn" href="#kurs" data-go="kurs" data-then="zapis">Записаться на курс <span class="arr" aria-hidden="true">→</span></a>
+          <button class="btn ghost" type="button" data-lesson><span aria-hidden="true">▶</span> Пробный урок</button>
+        </div>
+      </div>
+    </div>
+    <div class="letterbox"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 «Первая сделка» · Онлайн-курс по продажам и запуску бизнеса</span>
+    <span>Материалы носят образовательный характер и не являются финансовой консультацией.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+
+  /* кадр 04: огни города и кубик Рубика */
+  var bokeh = $('bokeh'), cols = ['#FFB547', '#8F9CFF', '#FF6B6B', '#FFE2A8', '#5BC0EB'];
+  for (var b = 0; b < 26; b++) el('circle', { cx: 30 + (b * 97) % 430, cy: 30 + (b * 53) % 120, r: 4 + (b * 7) % 14, fill: cols[b % 5], opacity: 0.12 + (b % 4) * 0.05 }, bokeh);
+  var cube = $('cube'), C = [240, 92], s = 17, R = [0.866 * s, 0.5 * s], L = [-0.866 * s, 0.5 * s], D = [0, s];
+  var top = [-0.866 * s, -0.5 * s], topR = [0.866 * s, -0.5 * s];
+  var faces = [
+    { u: top, v: topR, c: ['#F2C14E', '#F2C14E', '#F2C14E', '#F2C14E', '#F2C14E', '#F2C14E', '#F2C14E', '#F2C14E', '#D7263D'] },
+    { u: L, v: D, c: ['#2E44E5', '#2E44E5', '#2E44E5', '#2E44E5', '#2E44E5', '#F28C28', '#2E44E5', '#2E44E5', '#2E44E5'] },
+    { u: R, v: D, c: ['#D7263D', '#D7263D', '#F2C14E', '#D7263D', '#D7263D', '#D7263D', '#D7263D', '#D7263D', '#D7263D'] }
+  ];
+  el('polygon', { points: [C, [C[0] + 3 * top[0], C[1] + 3 * top[1]], [C[0] + 3 * top[0] + 3 * topR[0], C[1] + 3 * top[1] + 3 * topR[1]], [C[0] + 3 * topR[0], C[1] + 3 * topR[1]], [C[0] + 3 * R[0], C[1] + 3 * R[1] + 3 * s], [C[0], C[1] + 3 * s], [C[0] + 3 * L[0], C[1] + 3 * L[1] + 3 * s], [C[0] + 3 * L[0], C[1] + 3 * L[1]]].map(function (p) { return p.join(','); }).join(' '), fill: '#0A0A0A' }, cube);
+  faces.forEach(function (f, fi) {
+    for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) {
+      var g = 0.1, a = i + g, bb = j + g, a2 = i + 1 - g, b2 = j + 1 - g;
+      var pt = function (x, y) { return [C[0] + f.u[0] * x + f.v[0] * y, C[1] + f.u[1] * x + f.v[1] * y].join(','); };
+      el('polygon', { points: [pt(a, bb), pt(a2, bb), pt(a2, b2), pt(a, b2)].join(' '), fill: f.c[i * 3 + j], opacity: fi === 0 ? 1 : fi === 1 ? 0.82 : 0.68 }, cube);
+    }
+  });
+
+  /* кадр 06: окна общежития */
+  var dorm = $('dorm');
+  for (var r = 0; r < 4; r++) for (var c = 0; c < 6; c++) {
+    var x = 92 + c * 54, y = 36 + r * 56;
+    if (x === 200 + 14 && y === 92) continue;
+    if (Math.abs(x - 214) < 30 && y === 92) continue;
+    el('rect', { x: x, y: y, width: 40, height: 36, fill: (r * 6 + c) % 7 === 3 ? '#3A2E1A' : '#0B0E20', stroke: '#120C0B', 'stroke-width': 3 }, dorm);
+  }
+
+  /* программа */
+  var weeks = [
+    ['Продажи', 'Основы продаж и ваш оффер', ['B2B и B2C: в чём разница', 'Формула оффера: боль, результат, срок, цена', 'Цена первого продукта'], 'Оффер в одно предложение, понятный с первого прочтения'],
+    ['Лиды', 'Портрет клиента и сбор базы', ['Портрет идеального клиента и стоп-факторы', 'Источники: 2ГИС, Авито, чаты, Telegram', 'Сбор и чистка базы в таблице'], 'База из 200 проверенных контактов вашей ниши'],
+    ['Лиды', 'Холодные письма и звонки', ['Цепочка из 5–7 касаний за 14 дней', 'Первые 20 секунд звонка', 'Как не попасть в спам'], 'Запущенная рассылка и первые 10 ответов'],
+    ['Продажи', 'Переговоры и закрытие', ['Выявление потребности по СПИН', 'Возражения «дорого», «подумаю», «уже есть»', 'Коммерческое предложение и дожим'], 'Первая сделка или разбор, почему её не было'],
+    ['Менеджмент', 'CRM, метрики и план', ['Воронка в Битрикс24, amoCRM или таблице', 'Конверсия, средний чек, цикл сделки', 'План продаж от цели в рублях'], 'Рабочая CRM и план на следующий месяц'],
+    ['Менеджмент', 'Первый найм и управление', ['Когда нанимать и кого первым', 'Регламент и онбординг за 5 дней', 'Мотивация: оклад и процент'], 'Вакансия, регламент и схема мотивации']
+  ];
+  $('weeks').innerHTML = weeks.map(function (w, i) {
+    var track = ''; for (var k = 0; k < 6; k++) track += '<i' + (k <= i ? ' class="on"' : '') + '></i>';
+    return '<article class="week"><span class="ghostnum" aria-hidden="true">' + (i + 1) + '</span><div class="week-top"><span class="chip">' + w[0] + '</span><span class="track" title="Неделя ' + (i + 1) + ' из 6">' + track + '</span></div>' +
+      '<div><p class="eyebrow" style="margin-bottom:8px">Неделя ' + (i + 1) + '</p><h3>' + w[1] + '</h3></div>' +
+      '<ul>' + w[2].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+      '<p class="res"><span>Результат недели</span>' + w[3] + '</p></article>';
+  }).join('');
+
+  /* прожектор за курсором в hero */
+  document.querySelectorAll('.hero').forEach(function (h) {
+    h.addEventListener('pointermove', function (e) {
+      var r = h.getBoundingClientRect();
+      h.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      h.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  /* пробный урок, встроенный на главную */
+  var frame = $('lesson-frame');
+  frame.addEventListener('load', function () {
+    try {
+      var d = frame.contentDocument, page = d.querySelector('.page');
+      var fitFrame = function () { frame.style.height = Math.ceil(page.getBoundingClientRect().height) + 'px'; };
+      fitFrame();
+      new frame.contentWindow.ResizeObserver(fitFrame).observe(page);
+    } catch (e) {}
+  });
+  function pauseLesson() {
+    try { var b = frame.contentDocument.getElementById('play'); if (b.getAttribute('aria-label') === 'Пауза') b.click(); } catch (e) {}
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-lesson]'); if (b) { e.preventDefault(); show('kurs', 'probny'); } });
+
+  /* переключение страниц */
+  var views = { kurs: $('view-kurs'), start: $('view-start') };
+  var tabs = document.querySelectorAll('.tabs a');
+  function show(name, anchor) {
+    if (!views[name]) name = 'kurs';
+    if (name !== 'kurs') pauseLesson();
+    var changed = views[name].hidden;
+    Object.keys(views).forEach(function (k) { views[k].hidden = k !== name; });
+    tabs.forEach(function (t) { if (t.dataset.go === name) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current'); });
+    try { history.replaceState(null, '', '#' + name); } catch (e) {}
+    if (anchor) { var a = $(anchor); if (a) { a.scrollIntoView({ behavior: changed ? 'auto' : 'smooth' }); return; } }
+    if (changed) window.scrollTo(0, 0);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-go],[data-scroll]');
+    if (!a) return;
+    e.preventDefault();
+    if (a.dataset.plan) { var r = $('p-' + a.dataset.plan); if (r) r.checked = true; }
+    if (a.dataset.go) show(a.dataset.go, a.dataset.then);
+    else { var t = $(a.dataset.scroll); if (t) t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+  var hash = (location.hash || '').slice(1);
+  if (hash === 'start') show('start');
+  else if (hash === 'plan' || hash === 'kapital') show('start', hash);
+  else if (hash === 'zapis' || hash === 'programma' || hash === 'tarify' || hash === 'kino' || hash === 'probny') show('kurs', hash);
+
+  /* калькуляторы */
+  var rub = function (n) { return Math.round(n).toLocaleString('ru-RU') + ' ₽'; };
+  function plural(n, one, few, many) { var m = n % 10, h = n % 100; if (m === 1 && h !== 11) return one; if (m >= 2 && m <= 4 && (h < 12 || h > 14)) return few; return many; }
+  var months = function (n) { return n + ' ' + plural(n, 'месяц', 'месяца', 'месяцев'); };
+  function fill(i) { i.style.setProperty('--p', ((i.value - i.min) / (i.max - i.min) * 100) + '%'); }
+
+  function leads() {
+    var goal = +$('c-goal').value, check = +$('c-check').value, reply = +$('c-reply').value / 100, close = +$('c-close').value / 100;
+    $('o-goal').textContent = rub(goal); $('o-check').textContent = rub(check);
+    $('o-reply').textContent = Math.round(reply * 100) + '%'; $('o-close').textContent = Math.round(close * 100) + '%';
+    var deals = Math.ceil(goal / check), replies = Math.ceil(deals / close), contacts = Math.ceil(replies / reply);
+    var better = Math.ceil(replies / Math.min(0.5, reply * 1.5));
+    $('r-leads').textContent = contacts.toLocaleString('ru-RU');
+    $('r-deals').textContent = deals; $('r-replies').textContent = replies;
+    $('r-day').textContent = Math.ceil(contacts / 21);
+    $('r-text').textContent = 'Нужно ' + deals + ' ' + plural(deals, 'сделка', 'сделки', 'сделок') + ' в месяц. Если улучшить письма и поднять долю ответов в полтора раза, хватит ' + better.toLocaleString('ru-RU') + ' ' + plural(better, 'контакта', 'контактов', 'контактов') + '.';
+  }
+
+  function capital() {
+    var target = +$('k-target').value, have = +$('k-have').value, side = +$('k-side').value, sal = +$('k-salary').value;
+    $('ko-target').textContent = rub(target); $('ko-have').textContent = rub(have);
+    $('ko-side').textContent = rub(side); $('ko-salary').textContent = rub(sal);
+    var gap = Math.max(0, target - have), month = side + sal;
+    $('k-meter').style.width = Math.min(100, have / target * 100) + '%';
+    $('k-gap').textContent = rub(gap); $('k-month').textContent = rub(month);
+    if (gap === 0) {
+      $('k-months').textContent = 'Уже есть';
+      $('k-text').textContent = 'Денег на запуск достаточно. Всё равно начните с первых оплат и тратьте только на то, что доказало спрос.';
+      $('k-boost').textContent = '—'; return;
+    }
+    if (month === 0) {
+      $('k-months').textContent = '∞';
+      $('k-text').textContent = 'Без подработки и накоплений капитал не появится. Начните с услуг руками или агентской модели из таблицы выше.';
+      $('k-boost').textContent = '—'; return;
+    }
+    var m = Math.ceil(gap / month), mb = Math.ceil(gap / (side * 1.5 + sal));
+    $('k-months').textContent = months(m);
+    $('k-text').textContent = m > 18
+      ? 'Это долго. Уменьшите стартовый бюджет: запустите упрощённую версию и докупайте оборудование из выручки.'
+      : 'Хороший горизонт. Используйте это время, чтобы проверить спрос и найти первых клиентов заранее.';
+    $('k-boost').textContent = side > 0 ? months(mb) : '—';
+  }
+
+  document.querySelectorAll('input[type="range"]').forEach(function (i) {
+    fill(i);
+    i.addEventListener('input', function () { fill(i); i.id[0] === 'c' ? leads() : capital(); });
+  });
+  leads(); capital();
+
+  /* форма */
+  $('lead-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = $('f-name').value.trim(), phone = $('f-phone').value.trim(), msg = $('f-msg');
+    if (!name || !phone) { msg.className = 'note'; msg.textContent = 'Укажите имя и телефон или Telegram, чтобы мы могли связаться с вами.'; (name ? $('f-phone') : $('f-name')).focus(); return; }
+    msg.className = 'ok';
+    msg.textContent = name + ', это демо-версия формы: заявка пока никуда не отправляется. Подключите CRM или Telegram-бота, чтобы получать заявки.';
+  });
+})();
+</script>
+
+</body>
+</html>
